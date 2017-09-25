@@ -15,11 +15,11 @@ public class SQLDatabaseEngine extends DatabaseEngine {
 	@Override
 	String search(String text) throws Exception {
 		//Write your code here
-		Connection connectDatabase=null;
+		/*Connection connectDatabase=null;
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
 		try {
-			connectDatabase=getConnection();
+			connectDatabase=this.getConnection();
 			stmt = connection.prepareStatement(
 					"SELECT * FROM chatbot");
 			rs = stmt.executeQuery();
@@ -34,7 +34,7 @@ public class SQLDatabaseEngine extends DatabaseEngine {
 		rs.close();
 		stmt.close();
 		connectDatabase.close();
-		throw new Exception("NOT FOUND");
+		throw new Exception("NOT FOUND");*/
 		return null;
 	}
 	
