@@ -26,9 +26,10 @@ public class SQLDatabaseEngine extends DatabaseEngine {
 					+ "FROM chatbot;");
 			rs = stmt.executeQuery();
 			while(result==null && rs.next()) {
-				if (text.toLowerCase()==rs.getString(1).toLowerCase()) {
+				/*if (text.toLowerCase()==rs.getString(1).toLowerCase()) {
 					result=rs.getString(2);
-				}
+				}*/
+				result=rs.getString(2);
 			}
 		}catch (Exception e) {
 			log.info("Exception while reading database: {}", e.toString());
