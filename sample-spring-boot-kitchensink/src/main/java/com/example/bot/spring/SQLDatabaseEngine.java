@@ -15,27 +15,33 @@ public class SQLDatabaseEngine extends DatabaseEngine {
 	@Override
 	String search(String text) throws Exception {
 		//Write your code here
-		/*Connection connectDatabase=null;
+		Connection connectDatabase=null;
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
+		String result=null;
 		try {
 			connectDatabase=this.getConnection();
-			stmt = connection.prepareStatement(
-					"SELECT * FROM chatbot");
+			stmt = connectDatabase.prepareStatement(
+					"SELECT * "
+					+ "FROM chatbot;");
 			rs = stmt.executeQuery();
-			while(rs.next()) {
-				if (text.toLowerCase()==rs.getString(1)) {
-					return rs.getString(2);
+			while(result==null && rs.next()) {
+				if (text.toLowerCase()==rs.getString(1).toLowerCase()) {
+					result=rs.getString(2);
 				}
 			}
-		}catch (IOException e) {
-			log.info("IOException while reading database: {}", e.toString());
+		}catch (Exception e) {
+			log.info("Exception while reading database: {}", e.toString());
+		}finally {
+			rs.close();
+			stmt.close();
+			connectDatabase.close();
 		}
-		rs.close();
-		stmt.close();
-		connectDatabase.close();
-		throw new Exception("NOT FOUND");*/
-		return null;
+		
+		if (result!=null) {
+			return result;
+		}
+		throw new Exception("NOT FOUND");
 	}
 	
 	
