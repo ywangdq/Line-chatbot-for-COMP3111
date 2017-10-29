@@ -318,10 +318,12 @@ public class KitchenSinkController {
 	public KitchenSinkController() {
 		database = new SQLDatabaseEngine();
 		itscLOGIN = System.getenv("ITSC_LOGIN");
+		client=new Client(itscLOGIN,20,"male",186,82);
 	}
 
 	private SQLDatabaseEngine database;
 	private String itscLOGIN;
+	private Client client;
 	
 
 	//The annontation @Value is from the package lombok.Value
