@@ -14,30 +14,27 @@ import java.net.URI;
 public class SQLDatabaseEngine extends DatabaseEngine {
 	@Override
 	String search(String text) throws Exception {
-		//Write your code here
-		Connection connectDatabase=this.getConnection();
-		PreparedStatement stmt = connectDatabase.prepareStatement(
-				"SELECT * FROM chatbot;");
-		ResultSet rs = stmt.executeQuery();
-		String result=null;
-		try {
-			while(result==null && rs.next()) {
-				if (text.toLowerCase().equals(rs.getString(1).toLowerCase())) {
-					result=rs.getString(2);
-				}
-			}
-		}catch (Exception e) {
-			log.info("Exception while reading database: {}", e.toString());
-		}
-		rs.close();
-		stmt.close();
-		connectDatabase.close();
-		
-		if (result!=null) {
+	 String result = null;
+	 try {
+			Connection connection = getConnection();
+			PreparedStatement stmt = connection.prepareStatement("SELECT keyword, response FROM trialtable where keyword = ?");
+			stmt.setString(1, text); //or some other variables
+			ResultSet rs = stmt.executeQuery();
+			
+			rs.next();
+			System.out.println("Keyword: " + rs.getString(1) + "\tResponse: " + rs.getString(2) );
+			
+			result = rs.getString(2);
+			rs.close();
+			stmt.close();
+			connection.close();
+	 	 } catch (Exception e) {
+		    System.out.println(e);
+	 	 	}
+		if (result != null)
 			return result;
-		}
 		throw new Exception("NOT FOUND");
-	}
+}
 	
 	
 	private Connection getConnection() throws URISyntaxException, SQLException {
@@ -55,5 +52,5 @@ public class SQLDatabaseEngine extends DatabaseEngine {
 
 		return connection;
 	}
-
+	
 }
